@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
-            this.folderBrowser = new System.Windows.Forms.FolderBrowserDialog();
             this.patchGame = new System.Windows.Forms.Button();
             this.chooseDirectory = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -74,8 +73,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.FolderBrowserDialog folderBrowser;
         private System.Windows.Forms.Button patchGame;
         private System.Windows.Forms.Button chooseDirectory;
     }
