@@ -40,14 +40,14 @@ namespace TWD_S1___Spolszczenie
                 Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead105"))
                 {
                     // all folders found
-                    patchGame.Enabled = true;
                     showInfo("lokalizacja poprawna.");
+                    patchGame.Enabled = true;
                 }
                 else
                 {
                     // some folders were not found
-                    patchGame.Enabled = false;
                     showError("lokalizacja niepoprawna.");
+                    patchGame.Enabled = false;
                 }
             }
             // disabling button, in some cases it might be enabled at this point
