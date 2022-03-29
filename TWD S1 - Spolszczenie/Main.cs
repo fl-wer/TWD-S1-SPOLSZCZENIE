@@ -33,11 +33,8 @@ namespace TWD_S1___Spolszczenie
                 Title = "wybierz folder"
             };
 
-            // opening folder browser
-            folderBrowser.ShowDialog();
-
             // if user cancelled selecting path it will be blank
-            if (folderBrowser.FileName != "")
+            if (folderBrowser.ShowDialog() == CommonFileDialogResult.Ok)
             {
                 // making sure all folders exist so writing files won't fail
                 if (Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\default") &&
