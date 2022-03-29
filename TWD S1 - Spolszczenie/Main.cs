@@ -22,26 +22,36 @@ namespace TWD_S1___Spolszczenie
         // choosing game directory, has to be exact game path, not folder inside
         private void chooseDirectory_Click(object sender, EventArgs e)
         {
+            // clearing selected path before selection happens
+            // this is for the check below to see if it's blank
+            folderBrowser.SelectedPath = "";
+
             // show dialogue with folder selection
             folderBrowser.ShowDialog();
 
-            // making sure all folders exist so writing files won't fail
-            if (Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\default") &&
-            Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead102") &&
-            Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead103") &&
-            Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead104") &&
-            Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead105"))
+            // if user cancelled selecting path it will be blank
+            if (folderBrowser.SelectedPath != "")
             {
-                // all folders found
-                showInfo("Lokalizacja poprawna.");
-                patchGame.Enabled = true;
+                // making sure all folders exist so writing files won't fail
+                if (Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\default") &&
+                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead102") &&
+                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead103") &&
+                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead104") &&
+                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead105"))
+                {
+                    // all folders found
+                    showInfo("lokalizacja poprawna.");
+                    patchGame.Enabled = true;
+                }
+                else
+                {
+                    // some folders were not found
+                    showError("lokalizacja niepoprawna.");
+                    patchGame.Enabled = false;
+                }
             }
-            else
-            {
-                // some folders were not found
-                showError("Lokalizacja niepoprawna.");
-                patchGame.Enabled = false;
-            }
+            // disabling button, in some cases it might be enabled at this point
+            else patchGame.Enabled = false;
         }
 
         // writes language patching files into game folder
