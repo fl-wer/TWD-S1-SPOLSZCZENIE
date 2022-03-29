@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,27 +20,34 @@ namespace TWD_S1___Spolszczenie
         // this runs when you start program, nothing here so ignore
         private void Main_Load(object sender, EventArgs e) { }
 
+        string selectedDirectory = "";
+
         // choosing game directory, has to be exact game path, not folder inside
         private void chooseDirectory_Click(object sender, EventArgs e)
         {
-            // clearing selected path before selection happens
-            // this is for the check below to see if it's blank
-            folderBrowser.SelectedPath = "";
+            // creating new dialog object, we're using this
+            // because it has better gui and it's easier to select folders
+            var folderBrowser = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                Title = "wybierz folder"
+            };
 
-            // show dialogue with folder selection
+            // opening folder browser
             folderBrowser.ShowDialog();
 
             // if user cancelled selecting path it will be blank
-            if (folderBrowser.SelectedPath != "")
+            if (folderBrowser.FileName != "")
             {
                 // making sure all folders exist so writing files won't fail
-                if (Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\default") &&
-                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead102") &&
-                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead103") &&
-                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead104") &&
-                Directory.Exists(folderBrowser.SelectedPath + "\\" + "Pack\\WalkingDead105"))
+                if (Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\default") &&
+                Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\WalkingDead102") &&
+                Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\WalkingDead103") &&
+                Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\WalkingDead104") &&
+                Directory.Exists(folderBrowser.FileName + "\\" + "Pack\\WalkingDead105"))
                 {
                     // all folders found
+                    selectedDirectory = folderBrowser.FileName;
                     showInfo("lokalizacja poprawna.");
                     patchGame.Enabled = true;
                 }
@@ -58,7 +66,7 @@ namespace TWD_S1___Spolszczenie
         private void patchGame_Click(object sender, EventArgs e)
         {
             // putting game + pack path to 1 variable for readability
-            string epPath = folderBrowser.SelectedPath + "\\Pack\\";
+            string epPath = selectedDirectory + "\\Pack\\";
 
             // putting in try as this can throw exception in some cases
             try 
