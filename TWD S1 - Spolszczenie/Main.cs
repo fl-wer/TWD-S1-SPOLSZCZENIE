@@ -35,7 +35,6 @@ namespace TWD_S1___Spolszczenie
                 // all folders found
                 showInfo("Lokalizacja poprawna.");
                 patchGame.Enabled = true;
-
             }
             else
             {
