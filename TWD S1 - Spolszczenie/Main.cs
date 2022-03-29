@@ -20,6 +20,7 @@ namespace TWD_S1___Spolszczenie
         // this runs when you start program, nothing here so ignore
         private void Main_Load(object sender, EventArgs e) { }
 
+        // created for readability and cross function reference
         string selectedDirectory = "";
 
         // choosing game directory, has to be exact game path, not folder inside
